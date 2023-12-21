@@ -1,8 +1,5 @@
 package br.com.deveficiente.cdc.autor;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import br.com.deveficiente.cdc.validacao.AtributoValorUnico;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
