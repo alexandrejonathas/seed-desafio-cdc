@@ -26,10 +26,10 @@ public class AtributoValorUnicoValidator implements ConstraintValidator<Atributo
     public boolean isValid(Object value, ConstraintValidatorContext context) {
 		Query query = manager.createQuery("select d from "+classe.getName()+" d where d."+atributo+" = :valor");
 		query.setParameter("valor", value);
-		
+
 		var list = query.getResultList();
 		Assert.state(list.size() <= 1, "Foi encontrado mais de um "+classe+" com o atributo "+atributo+" = "+value);
-		
+
 		return list.isEmpty();
     }
     
