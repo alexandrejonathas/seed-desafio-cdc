@@ -20,7 +20,8 @@ public class CreateAutorController {
     @Transactional
     @PostMapping("/api/autores")    
     public ResponseEntity<?> create(@Valid @RequestBody CreateAutorRequest request) {
-        manager.persist(request.toModel());
-        return ResponseEntity.ok().build();
+        Autor autor = request.toModel();
+        manager.persist(autor);
+        return ResponseEntity.ok(autor);
     }
 }
