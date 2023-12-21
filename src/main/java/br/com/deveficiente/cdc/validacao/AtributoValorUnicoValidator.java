@@ -1,10 +1,10 @@
 package br.com.deveficiente.cdc.validacao;
 
+import jakarta.persistence.Query;
 import org.springframework.util.Assert;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -12,6 +12,8 @@ public class AtributoValorUnicoValidator implements ConstraintValidator<Atributo
 
     @PersistenceContext
     private EntityManager manager;
+
+	private Query query;
 
     private String atributo;
     private Class<?> classe;
@@ -24,7 +26,7 @@ public class AtributoValorUnicoValidator implements ConstraintValidator<Atributo
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-		Query query = manager.createQuery("select d from "+classe.getName()+" d where d."+atributo+" = :valor");
+		query = manager.createQuery("select d from "+classe.getName()+" d where d."+atributo+" = :valor");
 		query.setParameter("valor", value);
 
 		var list = query.getResultList();
