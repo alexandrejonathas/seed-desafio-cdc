@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+// Total da carga intrínseca 2
 public class ProblemaBuilder {
     
     private OffsetDateTime dataHora;
@@ -11,6 +12,7 @@ public class ProblemaBuilder {
     private String titulo;
     private String detalhe;
     private String mensagem;
+    //1 Acoplamento contextual classe Campo
     private List<Campo> campos;
 
     public ProblemaBuilder(Integer status, String titulo) {
@@ -20,6 +22,7 @@ public class ProblemaBuilder {
         this.campos = new ArrayList<>();
     }
 
+    //1 Acoplamento contextual classe Problema
     public Problema build() {
         return new Problema(this);
     }
@@ -62,6 +65,5 @@ public class ProblemaBuilder {
     public List<Campo> getCampos() {
         return campos;
     }
-    
     
 }

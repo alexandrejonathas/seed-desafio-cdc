@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  *  Classe criada visando retornar erros num padrão específico, e facilitar a vida de quam consome a API.
  */
 @ControllerAdvice
+// Total da carga intrínseca 4
 public class ManipuladorExceptionController extends ResponseEntityExceptionHandler {
     
     /**
@@ -31,6 +32,7 @@ public class ManipuladorExceptionController extends ResponseEntityExceptionHandl
     public ResponseEntity<?> handlerConstraintViolationException(ConstraintViolationException ex) {
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
         String titulo = "Ocorreu uma violação de restrição do banco de dados";
+        //1 Acoplamento contextual classe ProblemaBuilder
         ProblemaBuilder builder = new ProblemaBuilder(status.value(), titulo).comDetalhe(ex.getLocalizedMessage());
 
         return ResponseEntity.status(status.value()).body(builder.build());
@@ -63,11 +65,14 @@ public class ManipuladorExceptionController extends ResponseEntityExceptionHandl
         
         ProblemaBuilder builder = new ProblemaBuilder(httpStatus.value(), "Dados inválidos");
         builder.comDetalhe("Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.");
-
+        
+        //1 Acoplamento contextual classe Campo
+        //1 Acoplamento com função passada como argumento
         List<Campo> campos = bindingResult.getAllErrors().stream().map(erro -> {
             String mensagem = erro.getDefaultMessage();
             String nome = erro.getObjectName();
 
+            //1 Acoplamento com branch de código
             if (erro instanceof FieldError) {
                 nome = ((FieldError) erro).getField();
             }
