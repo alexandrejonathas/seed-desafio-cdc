@@ -10,18 +10,17 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
-
 @RestController
 public class CreateAutorController {
-    
+
     @PersistenceContext
     private EntityManager manager;
 
     @Transactional
-    @PostMapping("/api/autores")    
+    @PostMapping("/api/autores")
     public ResponseEntity<?> create(@Valid @RequestBody CreateAutorRequest request) {
         Autor autor = request.toModel();
-        manager.persist(autor);
+        manager.persist(autor);        
         return ResponseEntity.ok(autor);
     }
 }

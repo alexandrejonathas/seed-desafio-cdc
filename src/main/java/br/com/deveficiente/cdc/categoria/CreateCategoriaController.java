@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
+// Total da carga intrínseca 2
 public class CreateCategoriaController {
     
     @PersistenceContext
@@ -19,7 +20,9 @@ public class CreateCategoriaController {
 
     @Transactional
     @PostMapping("/api/categorias")
+    //1 Acoplamento contextual classe CreateCategoriaRequest 
     public ResponseEntity<?> create(@Valid @RequestBody CreateCategoriaRequest request) {
+        //1 Acoplamento contextual classe Categoria
         Categoria categoria = request.toModel();
         manager.persist(categoria);
 
