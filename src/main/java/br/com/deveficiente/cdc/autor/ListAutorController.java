@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
+// Total da carga intrínseca 1
 public class ListAutorController {
     
     @PersistenceContext
@@ -16,6 +17,7 @@ public class ListAutorController {
 
     @GetMapping("/api/autores")
     public ResponseEntity<?> list() {
+        //1 Acoplamento contextual classe Categoria
         var autores = manager.createQuery("SELECT a FROM Autor a").getResultList();
         return ResponseEntity.ok(autores);
     }

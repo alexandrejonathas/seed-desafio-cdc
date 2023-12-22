@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+// Total da carga intrínseca 2
 public class CreateAutorRequest {
     
     @NotBlank
@@ -16,6 +17,7 @@ public class CreateAutorRequest {
 
     @NotBlank
     @Email
+    //1 Acoplamento contextual classe AtributoValorUnicoValidator
     @AtributoValorUnico(classe = Autor.class, atributo = "email")
     @JsonProperty
     private String email;
@@ -34,6 +36,7 @@ public class CreateAutorRequest {
     }
     
     public Autor toModel() {
+        //1 Acoplamento contextual classe Autor
         return new Autor(nome, email, descricao);
     }
 

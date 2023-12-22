@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
+// Total da carga intrínseca 2
 public class CreateAutorController {
 
     @PersistenceContext
@@ -18,7 +19,9 @@ public class CreateAutorController {
 
     @Transactional
     @PostMapping("/api/autores")
+    //1 Acoplamento contextual classe CreateAutorRequest
     public ResponseEntity<?> create(@Valid @RequestBody CreateAutorRequest request) {
+        //1 Acoplamento contextual classe Autor
         Autor autor = request.toModel();
         manager.persist(autor);        
         return ResponseEntity.ok(autor);
