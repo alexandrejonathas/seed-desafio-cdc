@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,6 +33,15 @@ public class ManipuladorExceptionController extends ResponseEntityExceptionHandl
         String titulo = "Ocorreu uma violação de restrição do banco de dados";
         ProblemaBuilder builder = new ProblemaBuilder(status.value(), titulo).comDetalhe(ex.getLocalizedMessage());
 
+        return ResponseEntity.status(status.value()).body(builder.build());
+    }
+
+    @Override
+    @Nullable
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object obj, HttpHeaders httpHeaders,
+            HttpStatusCode status, WebRequest webRequest) {
+        String titulo = "Erro na requisição";
+        ProblemaBuilder builder = new ProblemaBuilder(status.value(), titulo).comDetalhe(ex.getLocalizedMessage());        
         return ResponseEntity.status(status.value()).body(builder.build());
     }
 
