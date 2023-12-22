@@ -22,6 +22,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @Entity
+// Total da carga intrínseca 2
 public class Livro {
     
     @Id
@@ -58,10 +59,12 @@ public class Livro {
 
     @NotNull
     @ManyToOne
+    // 1 Acoplamento contextual classe categoria
     private Categoria categoria;
 
     @NotNull
     @ManyToOne
+    // 1 Acoplamento contextual classe autor
     private Autor autor;
     
     @Deprecated

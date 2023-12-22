@@ -23,10 +23,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+// Total da carga intrínseca 5
 public class CreateLivroRequest {
 
     @JsonProperty
     @NotBlank
+    //1 Acoplamento contextual classe AtributoValorUnico
     @AtributoValorUnico(classe = Livro.class, atributo = "titulo")
     private String titulo;
 
@@ -61,6 +63,7 @@ public class CreateLivroRequest {
 
     @JsonProperty
     @NotNull
+    //1 Acoplamento contextual classe EntidadeExistente
     @EntidadeExistente(classe = Categoria.class)
     private Long categoriaId;
 
@@ -85,9 +88,12 @@ public class CreateLivroRequest {
         this.autorId = autorId;
     }
     
+    //1 Acoplamento contextual classe Livro
     public Livro toModel(EntityManager manager) {
-		var categoria = manager.find(Categoria.class, categoriaId);
-		var autor = manager.find(Autor.class, autorId);
+        //1 Acoplamento contextual classe categoria
+		Categoria categoria = manager.find(Categoria.class, categoriaId);
+        //1 Acoplamento contextual autor
+		Autor autor = manager.find(Autor.class, autorId);
 		return new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataPublicacao, categoria, autor);
     }
 }
